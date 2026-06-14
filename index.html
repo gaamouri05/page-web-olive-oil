@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Holy Tree — Single-Origin Tunisian Extra Virgin Olive Oil</title>
+<meta name="description" content="Holy Tree crafts cold-pressed, single-origin extra virgin olive oil from ancestral groves in Tunisia. Pressed within 24 hours of harvest. Certified, traceable, pure." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3c5 4 7 9 5 14-2 5-7 8-12 9 1-6 3-11 7-15' fill='%23c9a24b'/%3E%3Ccircle cx='12' cy='22' r='3' fill='%236f8a3c'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   HOLY TREE — Tokens
+   ============================================================ */
+:root{
+  --ink:#0b0f0a;
+  --ink-2:#10160f;
+  --panel:#152019;
+  --panel-2:#1a261c;
+  --olive:#2f3f26;
+  --leaf:#6f8a3c;
+  --leaf-soft:#9bb05a;
+  --gold:#c9a24b;
+  --gold-2:#e6c878;
+  --gold-3:#f3e2b0;
+  --cream:#f6f1e3;
+  --cream-dim:#c9c4b3;
+  --cream-faint:#8f8c7f;
+  --yellow:#e9c84b;
+  --line:rgba(201,162,75,.18);
+  --line-soft:rgba(246,241,227,.08);
+  --shadow:0 30px 80px -30px rgba(0,0,0,.7);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --maxw:1240px;
+  --on-accent:#0b0f0a;   /* text on gold/cream surfaces — stays dark in both themes */
+  --hero-bg:
+    radial-gradient(120% 90% at 78% 18%,rgba(111,138,60,.18),transparent 55%),
+    radial-gradient(90% 80% at 12% 90%,rgba(47,63,38,.5),transparent 60%),
+    linear-gradient(160deg,#0d130b 0%,#0b0f0a 55%,#0a0d08 100%);
+  --contact-bg:
+    radial-gradient(70% 90% at 85% 10%,rgba(111,138,60,.15),transparent),
+    linear-gradient(180deg,var(--ink),#0a0d08);
+  --input-bg:rgba(11,15,10,.6);
+  --input-bg-focus:rgba(11,15,10,.9);
+  --form-bg:rgba(21,32,25,.5);
+  --tile-bg:rgba(21,32,25,.4);
+  --tile-bg-strong:rgba(21,32,25,.85);
+  --nav-bg:rgba(11,15,10,.72);
+}
+
+/* ---------- LIGHT THEME ---------- */
+[data-theme="light"]{
+  --ink:#f7f3e8;          /* page background — warm cream */
+  --ink-2:#efe8d6;        /* alternate section background */
+  --panel:#ffffff;        /* cards / surfaces */
+  --panel-2:#faf5ea;
+  --olive:#2f3f26;
+  --leaf:#6f8a3c;
+  --leaf-soft:#587531;
+  --gold:#b4882e;
+  --gold-2:#8c6a1d;       /* deeper gold so accents stay legible on cream */
+  --gold-3:#e7c878;
+  --cream:#23291c;        /* primary text — deep olive ink */
+  --cream-dim:#4f5a41;    /* secondary text */
+  --cream-faint:#838872;  /* faint text */
+  --yellow:#b8901c;
+  --line:rgba(140,106,29,.30);
+  --line-soft:rgba(35,41,28,.12);
+  --shadow:0 30px 70px -34px rgba(70,58,24,.32);
+  --hero-bg:
+    radial-gradient(120% 90% at 80% 16%,rgba(111,138,60,.20),transparent 55%),
+    radial-gradient(90% 80% at 10% 92%,rgba(180,136,46,.14),transparent 60%),
+    linear-gradient(160deg,#fcf9f0 0%,#f4eedd 55%,#eee6d2 100%);
+  --contact-bg:
+    radial-gradient(70% 90% at 85% 10%,rgba(111,138,60,.16),transparent),
+    linear-gradient(180deg,#f7f3e8,#efe7d4);
+  --input-bg:#fffdf8;
+  --input-bg-focus:#ffffff;
+  --form-bg:#fffdf7;
+  --tile-bg:rgba(255,255,255,.55);
+  --tile-bg-strong:#ffffff;
+  --nav-bg:rgba(250,246,237,.8);
+}
+/* keep the gold gradient headline readable on a light background */
+[data-theme="light"] .gold-text{background:linear-gradient(105deg,#b4882e 0%,#8c6a1d 55%,#a9802a 100%)}
+/* the story panel stays a dark "photo" tile in both themes */
+[data-theme="light"] .story-art .badge b{color:#e7c878}
+[data-theme="light"] .story-art .badge span{color:#d9d3c1}
+[data-theme="light"] .story-art .badge{background:rgba(11,15,10,.55)}
+
+/* smooth, conflict-free theme cross-fade (only active during the switch) */
+html.theme-anim,html.theme-anim *{
+  transition:background-color .5s var(--ease),background .5s var(--ease),
+             color .45s var(--ease),border-color .5s var(--ease),fill .5s var(--ease)!important;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html{background:var(--ink)}
+body{
+  font-family:'Manrope',system-ui,sans-serif;
+  background:transparent;
+  color:var(--cream);
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ============================================================
+   DYNAMIC AMBIENT BACKGROUND (shifts color between sections)
+   ============================================================ */
+#ambient{position:fixed;inset:0;z-index:-2;background:var(--ink);transition:background-color 1.2s var(--ease)}
+.glow{position:fixed;inset:0;z-index:-1;opacity:0;pointer-events:none;will-change:opacity;
+  transition:opacity 1.4s var(--ease)}
+.glow.on{opacity:1}
+#g-olive{background:
+  radial-gradient(72% 60% at 82% 10%,rgba(111,138,60,.20),transparent 60%),
+  radial-gradient(60% 55% at 8% 92%,rgba(47,63,38,.30),transparent 62%)}
+#g-amber{background:
+  radial-gradient(64% 60% at 10% 26%,rgba(201,162,75,.18),transparent 62%),
+  radial-gradient(50% 50% at 92% 80%,rgba(111,138,60,.12),transparent 60%)}
+#g-gold{background:
+  radial-gradient(58% 52% at 50% 22%,rgba(230,200,120,.20),transparent 62%),
+  radial-gradient(50% 50% at 85% 90%,rgba(201,162,75,.12),transparent 60%)}
+#g-leaf{background:
+  radial-gradient(64% 58% at 78% 72%,rgba(111,138,60,.22),transparent 62%),
+  radial-gradient(46% 46% at 14% 18%,rgba(155,176,90,.12),transparent 60%)}
+#g-twilight{background:
+  radial-gradient(74% 64% at 86% 86%,rgba(201,162,75,.20),transparent 60%),
+  radial-gradient(60% 56% at 12% 14%,rgba(47,63,38,.22),transparent 62%)}
+
+/* scroll progress bar */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;transform-origin:left;
+  background:linear-gradient(90deg,var(--gold),var(--gold-3),var(--leaf-soft));
+  box-shadow:0 0 14px rgba(201,162,75,.6)}
+@media(prefers-reduced-motion:reduce){.glow{transition:opacity .3s linear}#ambient{transition:none}}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.05;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--gold);color:var(--on-accent)}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.section{padding:120px 0;position:relative}
+@media(max-width:760px){.section{padding:76px 0}}
+
+.eyebrow{
+  font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--gold-2);font-weight:600;display:inline-flex;align-items:center;gap:12px;
+}
+.eyebrow::before{content:"";width:30px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+
+/* gold gradient text */
+.gold-text{
+  background:linear-gradient(105deg,var(--gold) 0%,var(--gold-3) 45%,var(--gold) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-weight:600;font-size:.92rem;letter-spacing:.02em;
+  padding:15px 28px;border-radius:100px;cursor:pointer;border:1px solid transparent;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),background .4s var(--ease),color .3s;
+}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));
+  color:var(--on-accent);box-shadow:0 12px 40px -12px rgba(201,162,75,.7);
+}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 22px 55px -14px rgba(201,162,75,.85)}
+.btn-ghost{border-color:var(--line);color:var(--cream);background:rgba(246,241,227,.02)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-2);transform:translateY(-3px)}
+.btn svg{width:16px;height:16px}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .5s var(--ease),padding .5s var(--ease),border-color .5s,backdrop-filter .5s;
+  padding:24px 0;border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:var(--nav-bg);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line-soft);padding:14px 0;
+}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;font-family:'Fraunces',serif;font-size:1.35rem;letter-spacing:.01em}
+.logo .mark{width:34px;height:34px;flex:none}
+.logo b{font-weight:600}
+.logo .sub{display:block;font-family:'Manrope';font-size:.56rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-2);margin-top:-4px}
+.nav-links{display:flex;align-items:center;gap:34px;list-style:none}
+.nav-links a{font-size:.9rem;color:var(--cream-dim);position:relative;transition:color .3s;font-weight:500}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease)}
+.nav-links a:hover{color:var(--cream)}
+.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:var(--cream)}
+.nav-links a.active::after{width:100%}
+.nav-cta{display:flex;align-items:center;gap:18px}
+
+/* theme toggle switch */
+.theme-toggle{
+  position:relative;width:60px;height:30px;flex:none;border-radius:100px;cursor:pointer;padding:0;
+  border:1px solid var(--line);background:linear-gradient(180deg,rgba(246,241,227,.04),transparent);
+  transition:border-color .4s var(--ease),background .4s var(--ease);
+}
+.theme-toggle:hover{border-color:var(--gold)}
+.theme-toggle .knob{
+  position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));color:var(--on-accent);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px -2px rgba(201,162,75,.6);
+  transition:transform .45s var(--ease);
+}
+[data-theme="light"] .theme-toggle .knob{transform:translateX(30px)}
+.theme-toggle svg{width:13px;height:13px}
+.theme-toggle .sun{display:none}
+[data-theme="light"] .theme-toggle .sun{display:block}
+[data-theme="light"] .theme-toggle .moon{display:none}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
+.burger span{width:24px;height:2px;background:var(--cream);transition:.4s var(--ease)}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media(max-width:940px){
+  .nav-links,.nav-cta .btn{display:none}
+  .burger{display:flex}
+  .mobile-menu{
+    position:fixed;inset:0 0 0 auto;width:min(82vw,360px);z-index:99;
+    background:linear-gradient(180deg,var(--ink-2),var(--ink));
+    border-left:1px solid var(--line);padding:120px 36px 40px;
+    transform:translateX(100%);transition:transform .55s var(--ease);
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .mobile-menu.open{transform:translateX(0);box-shadow:-30px 0 80px rgba(0,0,0,.6)}
+  .mobile-menu a{font-family:'Fraunces',serif;font-size:1.5rem;padding:14px 0;border-bottom:1px solid var(--line-soft);color:var(--cream)}
+  .mobile-menu .btn{margin-top:24px;display:inline-flex;justify-content:center}
+}
+@media(min-width:941px){.mobile-menu{display:none}}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  padding:140px 0 80px;overflow:hidden;
+  background:var(--hero-bg);
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;position:relative;z-index:3}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:10px}}
+
+.hero h1{font-size:clamp(2.9rem,7vw,6.1rem);font-weight:500;margin:26px 0 0}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:block;transform:translateY(105%);opacity:0;animation:riseUp 1s var(--ease) forwards}
+.hero h1 em{font-style:italic;font-weight:400}
+@keyframes riseUp{to{transform:translateY(0);opacity:1}}
+.hero p.lead{
+  max-width:520px;color:var(--cream-dim);font-size:1.08rem;margin:28px 0 36px;
+  opacity:0;animation:fadeUp 1s var(--ease) .65s forwards;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero .eyebrow{opacity:0;animation:fadeUp 1s var(--ease) .15s forwards}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp 1s var(--ease) .85s forwards}
+
+.hero-meta{display:flex;gap:34px;margin-top:54px;flex-wrap:wrap;opacity:0;animation:fadeUp 1s var(--ease) 1.05s forwards}
+.hero-meta .m{}
+.hero-meta .m b{font-family:'Fraunces',serif;font-size:1.7rem;color:var(--gold-2);display:block;font-weight:500}
+.hero-meta .m span{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-faint)}
+
+/* the liquid-gold bottle visual */
+.hero-visual{position:relative;height:540px;display:flex;align-items:center;justify-content:center}
+@media(max-width:900px){.hero-visual{height:340px;margin-top:30px}}
+.oil-orb{
+  position:absolute;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,var(--gold-3),var(--gold) 45%,#a87f2c 80%);
+  filter:blur(2px);box-shadow:0 0 120px -10px rgba(201,162,75,.55),inset -20px -30px 60px rgba(120,86,20,.6);
+  animation:morph 14s ease-in-out infinite,floaty 9s ease-in-out infinite;
+  opacity:.92;
+}
+@keyframes morph{
+  0%,100%{border-radius:48% 52% 56% 44%/52% 48% 52% 48%}
+  33%{border-radius:60% 40% 42% 58%/45% 60% 40% 55%}
+  66%{border-radius:42% 58% 60% 40%/58% 42% 56% 44%}
+}
+@keyframes floaty{0%,100%{transform:translateY(-14px)}50%{transform:translateY(14px)}}
+.bottle{position:relative;z-index:2;filter:drop-shadow(0 40px 50px rgba(0,0,0,.55))}
+.bottle svg{width:200px;height:auto}
+@media(max-width:900px){.bottle svg{width:150px}.oil-orb{width:280px;height:280px}}
+
+/* floating leaves layer */
+.leaves{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.leaf{position:absolute;color:var(--leaf);opacity:.5;animation:drift linear infinite}
+@keyframes drift{
+  0%{transform:translateY(-10vh) rotate(0deg);opacity:0}
+  10%{opacity:.55}
+  90%{opacity:.4}
+  100%{transform:translateY(110vh) rotate(320deg);opacity:0}
+}
+
+.scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:4;
+  font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-faint);
+  display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fadeUp 1s 1.4s forwards}
+.scroll-hint i{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ============================================================
+   MARQUEE RIBBON
+   ============================================================ */
+.ribbon{background:var(--gold);color:var(--on-accent);overflow:hidden;padding:16px 0;white-space:nowrap}
+.ribbon-track{display:inline-flex;gap:54px;animation:scrollx 28s linear infinite;will-change:transform}
+.ribbon:hover .ribbon-track{animation-play-state:paused}
+.ribbon span{font-family:'Fraunces',serif;font-style:italic;font-size:1.15rem;display:inline-flex;align-items:center;gap:54px}
+.ribbon span::after{content:"❋";font-style:normal;color:var(--olive)}
+@keyframes scrollx{to{transform:translateX(-50%)}}
+
+/* ============================================================
+   STORY
+   ============================================================ */
+.story-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+@media(max-width:880px){.story-grid{grid-template-columns:1fr;gap:44px}}
+.story-art{position:relative;border-radius:18px;overflow:hidden;min-height:480px;
+  background:
+    radial-gradient(80% 60% at 70% 20%,rgba(155,176,90,.25),transparent),
+    linear-gradient(150deg,#243018,#0e140b);
+  border:1px solid var(--line);display:flex;align-items:flex-end;padding:34px}
+.story-art .grove{position:absolute;inset:0;opacity:.5}
+.story-art .badge{position:relative;z-index:2;background:rgba(11,15,10,.55);backdrop-filter:blur(8px);
+  border:1px solid var(--line);border-radius:14px;padding:20px 24px}
+.story-art .badge b{font-family:'Fraunces',serif;color:var(--gold-2);font-size:1.4rem;display:block}
+.story-art .badge span{font-size:.82rem;color:var(--cream-dim)}
+.story-copy h2{font-size:clamp(2rem,4vw,3.2rem);margin:22px 0 24px}
+.story-copy p{color:var(--cream-dim);margin-bottom:18px;max-width:560px}
+.story-points{list-style:none;margin:30px 0 0;display:grid;gap:16px}
+.story-points li{display:flex;gap:14px;align-items:flex-start;font-size:.96rem}
+.story-points .dot{flex:none;width:22px;height:22px;border-radius:50%;margin-top:3px;
+  background:radial-gradient(circle at 35% 30%,var(--gold-3),var(--gold));display:flex;align-items:center;justify-content:center}
+.story-points .dot::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--on-accent)}
+
+/* ============================================================
+   STATS
+   ============================================================ */
+.stats{background:transparent;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+@media(max-width:760px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:44px 20px}}
+.stat .num{font-family:'Fraunces',serif;font-size:clamp(2.6rem,5vw,4rem);font-weight:500;line-height:1}
+.stat .num .suf{font-size:.5em;color:var(--gold-2)}
+.stat .lab{margin-top:12px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-faint)}
+.stat .bar{width:40px;height:2px;background:var(--gold);margin:18px auto 0;opacity:.6}
+
+/* ============================================================
+   PRODUCTS CAROUSEL
+   ============================================================ */
+.prod-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:48px;flex-wrap:wrap}
+.prod-head h2{font-size:clamp(2rem,4vw,3.2rem);margin-top:18px}
+.carousel{position:relative}
+.track{display:flex;gap:26px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 28px;
+  scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
+.track::-webkit-scrollbar{display:none}
+.track.drag{cursor:grabbing;scroll-snap-type:none}
+.card{
+  flex:0 0 320px;scroll-snap-align:start;background:linear-gradient(170deg,var(--panel),var(--ink-2));
+  border:1px solid var(--line-soft);border-radius:18px;padding:30px;
+  transition:transform .5s var(--ease),border-color .5s,box-shadow .5s;position:relative;overflow:hidden;
+}
+@media(max-width:520px){.card{flex-basis:80vw}}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 50% at 50% 0%,rgba(201,162,75,.12),transparent);opacity:0;transition:opacity .5s}
+.card:hover{transform:translateY(-10px);border-color:var(--gold);box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.card:hover::before{opacity:1}
+.card .vis{height:190px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;position:relative}
+.card .vis svg{height:180px;width:auto;filter:drop-shadow(0 18px 22px rgba(0,0,0,.5));transition:transform .5s var(--ease)}
+.card:hover .vis svg{transform:translateY(-6px) rotate(-2deg)}
+.card .tag{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);font-weight:600}
+.card h3{font-size:1.5rem;margin:8px 0 8px}
+.card .note{font-size:.9rem;color:var(--cream-dim);min-height:48px}
+.card .pills{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 20px}
+.card .pills i{font-style:normal;font-size:.7rem;padding:5px 11px;border:1px solid var(--line);border-radius:100px;color:var(--cream-dim)}
+.card .foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line-soft);padding-top:18px}
+.card .price{font-family:'Fraunces',serif;font-size:1.25rem;color:var(--gold-2)}
+.card .price s{color:var(--cream-faint);font-size:.85rem;margin-left:6px}
+.card .add{font-size:.82rem;font-weight:600;color:var(--cream);display:inline-flex;align-items:center;gap:7px;transition:gap .3s,color .3s}
+.card .add:hover{gap:12px;color:var(--gold-2)}
+.car-nav{display:flex;gap:12px}
+.car-nav button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--cream);cursor:pointer;transition:.35s var(--ease);display:flex;align-items:center;justify-content:center}
+.car-nav button:hover{background:var(--gold);color:var(--on-accent);border-color:var(--gold);transform:scale(1.06)}
+.car-nav svg{width:18px;height:18px}
+
+/* ============================================================
+   PROCESS
+   ============================================================ */
+.process{background:transparent}
+.proc-head{text-align:center;max-width:620px;margin:0 auto 64px}
+.proc-head h2{font-size:clamp(2rem,4vw,3.2rem);margin:18px 0 0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+@media(max-width:860px){.steps{grid-template-columns:repeat(2,1fr);gap:30px}}
+@media(max-width:480px){.steps{grid-template-columns:1fr}}
+.step{position:relative;padding:34px 26px;border:1px solid var(--line-soft);border-radius:16px;background:var(--tile-bg);transition:.5s var(--ease)}
+.step:hover{border-color:var(--line);background:var(--tile-bg-strong);transform:translateY(-6px)}
+.step .no{font-family:'Fraunces',serif;font-size:2.6rem;color:transparent;-webkit-text-stroke:1px var(--gold);line-height:1}
+.step h3{font-size:1.25rem;margin:16px 0 10px}
+.step p{font-size:.9rem;color:var(--cream-dim)}
+.step .ic{position:absolute;top:30px;right:26px;color:var(--leaf-soft);opacity:.6}
+.step .ic svg{width:26px;height:26px}
+
+/* ============================================================
+   QUALITY / CERTS
+   ============================================================ */
+.quality .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media(max-width:880px){.quality .wrap{grid-template-columns:1fr;gap:40px}}
+.quality h2{font-size:clamp(2rem,4vw,3rem);margin:20px 0 22px}
+.quality p{color:var(--cream-dim);max-width:520px}
+.certs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.cert{border:1px solid var(--line-soft);border-radius:14px;padding:22px;display:flex;gap:16px;align-items:center;transition:.4s var(--ease);background:var(--tile-bg)}
+.cert:hover{border-color:var(--gold);transform:translateY(-4px)}
+.cert .seal{flex:none;width:50px;height:50px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold-2)}
+.cert .seal svg{width:24px;height:24px}
+.cert b{font-size:.98rem;display:block}
+.cert span{font-size:.78rem;color:var(--cream-faint)}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:60px;align-items:start}
+@media(max-width:880px){.faq-grid{grid-template-columns:1fr;gap:34px}}
+.faq-grid h2{font-size:clamp(2rem,4vw,3rem);margin:18px 0 18px;position:sticky;top:120px}
+@media(max-width:880px){.faq-grid h2{position:static}}
+.faq-list{display:flex;flex-direction:column}
+.qa{border-top:1px solid var(--line-soft)}
+.qa:last-child{border-bottom:1px solid var(--line-soft)}
+.qa button{width:100%;background:none;border:0;color:var(--cream);text-align:left;cursor:pointer;
+  padding:26px 0;display:flex;justify-content:space-between;gap:24px;align-items:center;font-family:'Fraunces',serif;font-size:1.22rem}
+.qa .plus{flex:none;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;position:relative;transition:.4s var(--ease)}
+.qa .plus::before,.qa .plus::after{content:"";position:absolute;background:var(--gold-2);top:50%;left:50%;transform:translate(-50%,-50%);transition:.4s var(--ease)}
+.qa .plus::before{width:12px;height:1.5px}
+.qa .plus::after{width:1.5px;height:12px}
+.qa.open .plus{background:var(--gold);border-color:var(--gold)}
+.qa.open .plus::before,.qa.open .plus::after{background:var(--on-accent)}
+.qa.open .plus::after{transform:translate(-50%,-50%) scaleY(0)}
+.qa .ans{max-height:0;overflow:hidden;transition:max-height .5s var(--ease),opacity .4s}
+.qa .ans p{padding:0 50px 28px 0;color:var(--cream-dim);font-size:.96rem}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact{background:transparent}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+@media(max-width:880px){.contact-grid{grid-template-columns:1fr;gap:44px}}
+.contact h2{font-size:clamp(2rem,4.5vw,3.4rem);margin:18px 0 20px}
+.contact .lead{color:var(--cream-dim);max-width:430px;margin-bottom:36px}
+.cinfo{display:grid;gap:22px}
+.cinfo .row{display:flex;gap:16px;align-items:flex-start}
+.cinfo .ic{flex:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--gold-2)}
+.cinfo .ic svg{width:20px;height:20px}
+.cinfo b{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-faint);font-weight:600;margin-bottom:3px}
+.cinfo span{color:var(--cream)}
+.form{background:var(--form-bg);border:1px solid var(--line-soft);border-radius:20px;padding:38px}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-faint);margin-bottom:9px}
+.field input,.field textarea,.field select{
+  width:100%;background:var(--input-bg);border:1px solid var(--line-soft);border-radius:11px;
+  padding:14px 16px;color:var(--cream);font-family:inherit;font-size:.95rem;transition:.3s}
+.field textarea{resize:vertical;min-height:120px}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--gold);background:var(--input-bg-focus)}
+.form .btn-gold{width:100%;justify-content:center;margin-top:6px}
+.form-ok{display:none;text-align:center;padding:40px 10px}
+.form-ok.show{display:block;animation:fadeUp .6s var(--ease)}
+.form-ok .check{width:64px;height:64px;border-radius:50%;border:2px solid var(--gold);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;color:var(--gold-2)}
+.form-ok h3{font-size:1.5rem;margin-bottom:8px}
+.form-ok p{color:var(--cream-dim)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:var(--ink);border-top:1px solid var(--line-soft);padding:70px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:40px;margin-bottom:50px}
+@media(max-width:880px){.foot-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:520px){.foot-grid{grid-template-columns:1fr}}
+.foot-brand p{color:var(--cream-faint);max-width:300px;margin:18px 0 22px;font-size:.92rem}
+.foot-col h4{font-family:'Manrope';font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-2);margin-bottom:20px;font-weight:600}
+.foot-col a{display:block;color:var(--cream-dim);font-size:.92rem;margin-bottom:13px;transition:.3s}
+.foot-col a:hover{color:var(--gold-2);padding-left:5px}
+.news input{width:100%;background:var(--input-bg);border:1px solid var(--line-soft);border-radius:100px;padding:13px 18px;color:var(--cream);margin-bottom:12px;font-family:inherit}
+.news input:focus{outline:none;border-color:var(--gold)}
+.news .btn-gold{width:100%;justify-content:center}
+.foot-bottom{border-top:1px solid var(--line-soft);padding-top:28px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--cream-faint);font-size:.84rem}
+.socials{display:flex;gap:14px}
+.socials a{width:36px;height:36px;border:1px solid var(--line-soft);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.35s var(--ease)}
+.socials a:hover{border-color:var(--gold);color:var(--gold-2);transform:translateY(-3px)}
+.socials svg{width:16px;height:16px}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal-l{opacity:0;transform:translateX(-46px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal-r{opacity:0;transform:translateX(46px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal-l.in,.reveal-r.in,.reveal-scale.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}.reveal.d4{transition-delay:.4s}
+@media(prefers-reduced-motion:reduce){
+  .reveal,.reveal-l,.reveal-r,.reveal-scale{opacity:1;transform:none;transition:none}
+  .oil-orb,.leaf,.ribbon-track,.hero h1 .line span,.hero .eyebrow,.hero p.lead,.hero-actions,.hero-meta,.scroll-hint{animation:none!important;opacity:1!important;transform:none!important}
+}
+</style>
+<script>try{if(localStorage.getItem('ht-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
+</head>
+<body>
+
+<div id="ambient" aria-hidden="true"></div>
+<div class="glow" id="g-olive" aria-hidden="true"></div>
+<div class="glow" id="g-amber" aria-hidden="true"></div>
+<div class="glow" id="g-gold" aria-hidden="true"></div>
+<div class="glow" id="g-leaf" aria-hidden="true"></div>
+<div class="glow" id="g-twilight" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Holy Tree home">
+      <svg class="mark" viewBox="0 0 40 40" fill="none">
+        <path d="M20 4C27 9 30 16 27 24c-3 8-11 11-18 12 1-9 4-17 11-23" fill="#c9a24b"/>
+        <path d="M20 4C13 9 10 16 13 24c3 8 11 11 18 12-1-9-4-17-11-23" fill="#6f8a3c" opacity=".9"/>
+        <circle cx="20" cy="33" r="4" fill="#e6c878"/>
+      </svg>
+      <span><b>Holy Tree</b><span class="sub">Tunisian Olive Oil</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#quality">Quality</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Switch between dark and light mode">
+        <span class="knob">
+          <svg class="moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A8 8 0 0 1 11.2 3a7 7 0 1 0 9.8 9.8Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+        </span>
+      </button>
+      <a href="#products" class="btn btn-gold">Shop the harvest</a>
+      <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#story">Our Story</a>
+  <a href="#products">Products</a>
+  <a href="#process">Process</a>
+  <a href="#quality">Quality</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact">Contact</a>
+  <a href="#products" class="btn btn-gold">Shop the harvest</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="leaves" id="leaves"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="eyebrow">Extra Virgin · Single Origin · Tunisia</span>
+        <h1>
+          <span class="line"><span>Liquid gold from</span></span>
+          <span class="line"><span>Tunisia's <em class="gold-text">holy</em> groves</span></span>
+        </h1>
+        <p class="lead">Holy Tree presses extra virgin olive oil from ancestral trees in the sun-soaked hills of Tunisia — harvested by hand and cold-pressed within 24 hours, so every drop keeps the green, peppery soul of the fruit.</p>
+        <div class="hero-actions">
+          <a href="#products" class="btn btn-gold">Discover our oils
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#story" class="btn btn-ghost">Our story</a>
+        </div>
+        <div class="hero-meta">
+          <div class="m"><b>1200+</b><span>Hectares of groves</span></div>
+          <div class="m"><b>≤ 24h</b><span>Grove to press</span></div>
+          <div class="m"><b>0.3%</b><span>Acidity</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="oil-orb"></div>
+        <div class="bottle">
+          <svg viewBox="0 0 120 320" fill="none">
+            <rect x="50" y="6" width="20" height="26" rx="3" fill="#2f3f26"/>
+            <path d="M48 32h24v18l10 16c5 8 8 18 8 28v200a14 14 0 0 1-14 14H44a14 14 0 0 1-14-14V94c0-10 3-20 8-28l10-16V32Z" fill="#10160f" stroke="#c9a24b" stroke-width="1.5"/>
+            <path d="M34 150h52v144a10 10 0 0 1-10 10H44a10 10 0 0 1-10-10V150Z" fill="url(#oilg)"/>
+            <rect x="40" y="170" width="40" height="92" rx="6" fill="#0b0f0a" opacity=".55"/>
+            <path d="M52 182c0-3 3-5 6-3M52 196c0-3 4-6 8-3" stroke="#c9a24b" stroke-width="1.2" opacity=".7"/>
+            <text x="60" y="206" text-anchor="middle" font-family="Fraunces,serif" font-size="13" fill="#e6c878">HOLY</text>
+            <text x="60" y="224" text-anchor="middle" font-family="Fraunces,serif" font-size="13" fill="#e6c878">TREE</text>
+            <text x="60" y="244" text-anchor="middle" font-family="Manrope,sans-serif" font-size="6" letter-spacing="2" fill="#9bb05a">EXTRA VIRGIN</text>
+            <defs>
+              <linearGradient id="oilg" x1="0" y1="150" x2="0" y2="304" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#e6c878"/><stop offset="1" stop-color="#a87f2c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll<i></i></div>
+</header>
+
+<!-- ============ RIBBON ============ -->
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-track">
+    <span>100% Cold Pressed</span><span>First Extraction</span><span>Single Origin Tunisia</span><span>Certified Organic</span><span>Hand Harvested</span><span>Fully Traceable</span>
+    <span>100% Cold Pressed</span><span>First Extraction</span><span>Single Origin Tunisia</span><span>Certified Organic</span><span>Hand Harvested</span><span>Fully Traceable</span>
+  </div>
+</div>
+
+<!-- ============ STORY ============ -->
+<section class="section" id="story">
+  <div class="wrap story-grid">
+    <div class="story-art reveal-l">
+      <svg class="grove" viewBox="0 0 400 480" preserveAspectRatio="xMidYMid slice" fill="none">
+        <rect width="400" height="480" fill="#141d0d"/>
+        <g opacity=".7">
+          <path d="M90 360c-8-60 6-120 10-150 4 30 18 90 10 150" fill="#3a4d24"/>
+          <ellipse cx="100" cy="200" rx="70" ry="60" fill="#5a7330"/>
+          <ellipse cx="60" cy="230" rx="45" ry="40" fill="#46612a"/>
+          <ellipse cx="140" cy="230" rx="48" ry="42" fill="#638239"/>
+        </g>
+        <g opacity=".55">
+          <path d="M300 380c-6-50 5-100 8-126 3 26 15 76 8 126" fill="#33441f"/>
+          <ellipse cx="306" cy="250" rx="58" ry="50" fill="#4d6629"/>
+          <ellipse cx="270" cy="276" rx="38" ry="34" fill="#3d5322"/>
+          <ellipse cx="342" cy="276" rx="40" ry="35" fill="#587531"/>
+        </g>
+        <circle cx="330" cy="80" r="46" fill="#e6c878" opacity=".35"/>
+      </svg>
+      <div class="badge">
+        <b>Est. in the Sahel of Tunisia</b>
+        <span>Groves rooted in soil olive trees have tended for over two thousand years.</span>
+      </div>
+    </div>
+    <div class="story-copy">
+      <span class="eyebrow reveal">Our Story</span>
+      <h2 class="reveal d1">A tree the ancients <em class="gold-text">called sacred</em></h2>
+      <p class="reveal d1">Across the Mediterranean, the olive tree has been a symbol of peace, light and longevity since antiquity. In Tunisia — one of the oldest olive-growing lands on earth — some of our trees have been giving fruit for generations beyond memory. We named the company for that reverence.</p>
+      <p class="reveal d2">Holy Tree began as a single family grove. Today we work hand-in-hand with growers across the Tunisian Sahel, pressing each harvest at its peak and bottling it at the source so the oil reaches you exactly as the grove intended.</p>
+      <ul class="story-points reveal d3">
+        <li><span class="dot"></span><div><b>Rooted in place.</b> Single-origin fruit, never blended with imported oils.</div></li>
+        <li><span class="dot"></span><div><b>Pressed at peak.</b> From branch to mill in under 24 hours to lock in freshness.</div></li>
+        <li><span class="dot"></span><div><b>Honest by nature.</b> Every batch is lab-tested and traceable to its grove.</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="section stats" id="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat reveal"><div class="num" data-count="1200" data-suffix="+">0</div><div class="lab">Hectares of groves</div><div class="bar"></div></div>
+      <div class="stat reveal d1"><div class="num" data-count="32" data-suffix=" countries">0</div><div class="lab">Where we ship</div><div class="bar"></div></div>
+      <div class="stat reveal d2"><div class="num" data-count="14" data-suffix="">0</div><div class="lab">International awards</div><div class="bar"></div></div>
+      <div class="stat reveal d3"><div class="num" data-count="100" data-suffix="%">0</div><div class="lab">Cold pressed</div><div class="bar"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="section" id="products">
+  <div class="wrap">
+    <div class="prod-head">
+      <div>
+        <span class="eyebrow reveal">The Collection</span>
+        <h2 class="reveal d1">From our grove <em class="gold-text">to your table</em></h2>
+      </div>
+      <div class="car-nav reveal d2">
+        <button id="prev" aria-label="Previous products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button id="next" aria-label="Next products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="carousel">
+      <div class="track" id="track">
+        <!-- cards injected by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section process" id="process">
+  <div class="wrap">
+    <div class="proc-head">
+      <span class="eyebrow reveal">From Grove to Bottle</span>
+      <h2 class="reveal d1">Four steps, <em class="gold-text">zero shortcuts</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="no">01</div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c4 3 5 7 4 11M12 22c-3-3-4-7-3-11"/><circle cx="9" cy="16" r="2"/></svg></div>
+        <h3>Hand harvest</h3>
+        <p>Olives are picked by hand at the moment of perfect ripeness, never stripped or shaken to the ground.</p>
+      </div>
+      <div class="step reveal d1">
+        <div class="no">02</div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M5 6h14M5 18h14"/></svg></div>
+        <h3>Cold press</h3>
+        <p>Within 24 hours the fruit is cold-pressed below 27°C, preserving polyphenols, aroma and a low acidity.</p>
+      </div>
+      <div class="step reveal d2">
+        <div class="no">03</div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3h6v5l4 9a3 3 0 0 1-3 4H8a3 3 0 0 1-3-4l4-9V3Z"/></svg></div>
+        <h3>Lab tested</h3>
+        <p>Each batch is analysed for purity and tasted by a sensory panel before it earns the Holy Tree label.</p>
+      </div>
+      <div class="step reveal d3">
+        <div class="no">04</div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-9Z"/></svg></div>
+        <h3>Bottled at source</h3>
+        <p>Filled and sealed at the grove in dark glass to protect the oil from light — fully traceable to its origin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUALITY ============ -->
+<section class="section quality" id="quality">
+  <div class="wrap">
+    <div class="qcopy">
+      <span class="eyebrow reveal">Quality & Certifications</span>
+      <h2 class="reveal d1">Trust you can <em class="gold-text">taste</em></h2>
+      <p class="reveal d1">We hold ourselves to standards stricter than the grade requires. Independent bodies verify every harvest, and our traceability lets you follow a bottle all the way back to the row of trees it came from.</p>
+      <p class="reveal d2" style="margin-top:14px;color:var(--cream-faint);font-size:.86rem">Certifications shown are representative — swap in your real accreditations and seals.</p>
+    </div>
+    <div class="certs reveal d2">
+      <div class="cert"><span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c4 3 5 7 4 11M12 21c-3-3-4-7-3-11"/></svg></span><div><b>Certified Organic</b><span>EU & national bio</span></div></div>
+      <div class="cert"><span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 13l4 4 10-10"/></svg></span><div><b>Extra Virgin Grade</b><span>Acidity ≤ 0.3%</span></div></div>
+      <div class="cert"><span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span><div><b>ISO 22000</b><span>Food safety</span></div></div>
+      <div class="cert"><span class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7l8-4 8 4-8 4-8-4Z"/><path d="M4 12l8 4 8-4M4 17l8 4 8-4"/></svg></span><div><b>Full Traceability</b><span>Grove to bottle</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="wrap faq-grid">
+    <div>
+      <span class="eyebrow reveal">FAQ</span>
+      <h2 class="reveal d1">Good to <em class="gold-text">know</em></h2>
+    </div>
+    <div class="faq-list reveal d1" id="faqList">
+      <div class="qa">
+        <button>What makes Holy Tree extra virgin?<span class="plus"></span></button>
+        <div class="ans"><p>Our oil is mechanically cold-pressed from a single harvest with no heat, chemicals or refining. It tests below 0.3% acidity — well inside the extra virgin grade — and is judged free of defects by a sensory panel.</p></div>
+      </div>
+      <div class="qa">
+        <button>Where exactly does the oil come from?<span class="plus"></span></button>
+        <div class="ans"><p>Every bottle is single-origin Tunisian, pressed from groves in the Sahel region. We never blend with imported oils, and each batch carries a code you can trace back to its grove.</p></div>
+      </div>
+      <div class="qa">
+        <button>How should I store it, and how long does it last?<span class="plus"></span></button>
+        <div class="ans"><p>Keep it sealed in a cool, dark place away from heat and light. Unopened, it stays at its best for about 18 months from pressing; once opened, use within two to three months for peak flavour.</p></div>
+      </div>
+      <div class="qa">
+        <button>Do you offer wholesale or private label?<span class="plus"></span></button>
+        <div class="ans"><p>Yes. We supply restaurants, retailers and distributors with bulk and private-label options, including custom bottling. Reach out through the contact form and our trade team will follow up with pricing.</p></div>
+      </div>
+      <div class="qa">
+        <button>Which countries do you ship to?<span class="plus"></span></button>
+        <div class="ans"><p>We currently ship to 32 countries across Europe, the Gulf, North America and Asia. If your country isn't listed at checkout, contact us — we can usually arrange freight for larger orders.</p></div>
+      </div>
+      <div class="qa">
+        <button>When is the harvest, and is the oil fresh?<span class="plus"></span></button>
+        <div class="ans"><p>The main harvest runs from late October through December. We press within 24 hours of picking and date every bottle, so you always know how recent your oil is.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Contact</span>
+      <h2>Let's talk <em class="gold-text">olive oil</em></h2>
+      <p class="lead">Wholesale, private label, or just curious about the harvest? Send a note and a real person from Holy Tree will get back to you.</p>
+      <div class="cinfo">
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6l8 6 8-6M4 6h16v12H4V6Z"/></svg></span><div><b>Email</b><span>hello@holytree-oil.com</span></div></div>
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span><div><b>Phone</b><span>+216 00 000 000</span></div></div>
+        <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><b>Grove & mill</b><span>Sahel region, Tunisia</span></div></div>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <div class="form" id="form">
+        <div class="field"><label for="name">Name</label><input id="name" type="text" placeholder="Your name" /></div>
+        <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="you@company.com" /></div>
+        <div class="field"><label for="topic">I'm interested in</label>
+          <select id="topic">
+            <option>Buying for myself</option>
+            <option>Wholesale / distribution</option>
+            <option>Private label</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field"><label for="msg">Message</label><textarea id="msg" placeholder="Tell us what you need…"></textarea></div>
+        <button class="btn btn-gold" id="send">Send message
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <div class="form-ok" id="formOk">
+        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4 10-10"/></svg></div>
+        <h3>Message sent</h3>
+        <p>Thank you — we'll be in touch within one business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="logo">
+          <svg class="mark" viewBox="0 0 40 40" fill="none"><path d="M20 4C27 9 30 16 27 24c-3 8-11 11-18 12 1-9 4-17 11-23" fill="#c9a24b"/><path d="M20 4C13 9 10 16 13 24c3 8 11 11 18 12-1-9-4-17-11-23" fill="#6f8a3c" opacity=".9"/><circle cx="20" cy="33" r="4" fill="#e6c878"/></svg>
+          <span><b>Holy Tree</b><span class="sub">Tunisian Olive Oil</span></span>
+        </a>
+        <p>Single-origin extra virgin olive oil, cold-pressed from ancestral groves in Tunisia and bottled at the source.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 8h-2a2 2 0 0 0-2 2v2H8v3h2v6h3v-6h2.5l.5-3H13v-1.5c0-.5.3-.5.7-.5H16V8h-2Z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 0 1 4 0v4"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="#story">Our Story</a>
+        <a href="#products">Products</a>
+        <a href="#process">Process</a>
+        <a href="#quality">Quality</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <a href="#">Wholesale</a>
+        <a href="#">Sustainability</a>
+      </div>
+      <div class="foot-col news">
+        <h4>The harvest letter</h4>
+        <p style="color:var(--cream-faint);font-size:.88rem;margin-bottom:14px">Tasting notes and early-harvest news, a few times a year.</p>
+        <input type="email" placeholder="Your email" aria-label="Email for newsletter" />
+        <button class="btn btn-gold">Subscribe</button>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Holy Tree. Crafted in Tunisia.</span>
+      <span>Privacy · Terms · Shipping</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- theme toggle ---------- */
+const root=document.documentElement,themeBtn=document.getElementById('themeToggle');
+function applyTheme(t){
+  const light=t==='light';
+  root.classList.add('theme-anim');
+  if(light)root.setAttribute('data-theme','light');else root.removeAttribute('data-theme');
+  themeBtn.setAttribute('aria-checked',light);
+  try{localStorage.setItem('ht-theme',t)}catch(e){}
+  clearTimeout(applyTheme._t);
+  applyTheme._t=setTimeout(()=>root.classList.remove('theme-anim'),550);
+}
+themeBtn.setAttribute('aria-checked',root.hasAttribute('data-theme'));
+themeBtn.addEventListener('click',()=>applyTheme(root.hasAttribute('data-theme')?'dark':'light'));
+
+/* ---------- nav scroll state ---------- */
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+
+/* ---------- mobile menu ---------- */
+const burger=document.getElementById('burger'),mm=document.getElementById('mobileMenu');
+burger.addEventListener('click',()=>{const o=mm.classList.toggle('open');burger.classList.toggle('open',o)});
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('open');burger.classList.remove('open')}));
+
+/* ---------- scroll reveal ---------- */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.reveal-scale').forEach(el=>io.observe(el));
+
+/* ---------- dynamic ambient + scrollspy ---------- */
+const sectionGlow={top:'g-olive',story:'g-amber',stats:'g-gold',products:'g-gold',process:'g-leaf',quality:'g-leaf',faq:'g-olive',contact:'g-twilight'};
+const glows=document.querySelectorAll('.glow');
+function setGlow(id){glows.forEach(g=>g.classList.toggle('on',g.id===id))}
+setGlow('g-olive');
+let activeSection='top';
+const spyTargets=[...document.querySelectorAll('section[id], header#top')];
+const spy=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting)activeSection=e.target.id});
+  const glow=sectionGlow[activeSection];
+  if(glow)setGlow(glow);
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+activeSection);
+  });
+},{rootMargin:'-46% 0px -46% 0px',threshold:0});
+spyTargets.forEach(s=>spy.observe(s));
+
+/* ---------- scroll progress bar ---------- */
+const progress=document.getElementById('progress');
+function onScrollProgress(){
+  const h=document.documentElement;
+  const max=h.scrollHeight-h.clientHeight;
+  progress.style.width=(max>0?(h.scrollTop/max)*100:0)+'%';
+}
+addEventListener('scroll',onScrollProgress,{passive:true});onScrollProgress();
+
+/* ---------- hero parallax ---------- */
+const heroVisual=document.querySelector('.hero-visual'),heroText=document.querySelector('.hero-text');
+const reduceMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(!reduceMotion){
+  addEventListener('scroll',()=>{
+    const y=scrollY;
+    if(y<1000){
+      if(heroVisual)heroVisual.style.transform=`translateY(${y*.16}px)`;
+      if(heroText)heroText.style.transform=`translateY(${y*.06}px)`;
+    }
+  },{passive:true});
+}
+
+/* ---------- count-up stats ---------- */
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const countIO=new IntersectionObserver((es)=>{es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const el=e.target,target=+el.dataset.count,suf=el.dataset.suffix||'';
+  if(reduce){el.textContent=target+suf;countIO.unobserve(el);return;}
+  const dur=1600,t0=performance.now();
+  const tick=(t)=>{const p=Math.min((t-t0)/dur,1),val=Math.round((1-Math.pow(1-p,3))*target);
+    el.innerHTML=val+'<span class="suf">'+suf+'</span>';if(p<1)requestAnimationFrame(tick);};
+  requestAnimationFrame(tick);countIO.unobserve(el);
+})},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>countIO.observe(el));
+
+/* ---------- products ---------- */
+const bottle=(cap,liquid,liquid2,label,sub)=>`
+  <svg viewBox="0 0 120 320" fill="none">
+    <rect x="50" y="6" width="20" height="24" rx="3" fill="${cap}"/>
+    <path d="M48 30h24v18l10 16c5 8 8 18 8 28v196a14 14 0 0 1-14 14H44a14 14 0 0 1-14-14V92c0-10 3-20 8-28l10-16V30Z" fill="#0e140b" stroke="#c9a24b" stroke-width="1.4"/>
+    <path d="M34 148h52v144a10 10 0 0 1-10 10H44a10 10 0 0 1-10-10V148Z" fill="url(#g${label.replace(/\\s/g,'')})"/>
+    <rect x="40" y="166" width="40" height="96" rx="6" fill="#0b0f0a" opacity=".5"/>
+    <text x="60" y="200" text-anchor="middle" font-family="Fraunces,serif" font-size="12" fill="#e6c878">HOLY</text>
+    <text x="60" y="216" text-anchor="middle" font-family="Fraunces,serif" font-size="12" fill="#e6c878">TREE</text>
+    <text x="60" y="234" text-anchor="middle" font-family="Manrope,sans-serif" font-size="5.5" letter-spacing="1.5" fill="#9bb05a">${sub}</text>
+    <defs><linearGradient id="g${label.replace(/\\s/g,'')}" x1="0" y1="148" x2="0" y2="302" gradientUnits="userSpaceOnUse">
+      <stop stop-color="${liquid}"/><stop offset="1" stop-color="${liquid2}"/></linearGradient></defs>
+  </svg>`;
+const products=[
+  {tag:'Signature',name:'Classic Extra Virgin',note:'Balanced and fruity with a peppery finish — the everyday Holy Tree pour.',pills:['EVOO','500ml','Acidity 0.3%'],price:'€18',was:'',cap:'#2f3f26',l:'#e6c878',l2:'#a87f2c',sub:'EXTRA VIRGIN'},
+  {tag:'Organic',name:'Organic Reserve',note:'Certified-organic fruit from our oldest terraces. Smooth, grassy, generous.',pills:['Bio','500ml','Limited'],price:'€24',was:'',cap:'#6f8a3c',l:'#cfe07a',l2:'#7a9132',sub:'ORGANIC'},
+  {tag:'Early Harvest',name:'Novello — Early Harvest',note:'Pressed from green olives. Intense, bittersweet and packed with polyphenols.',pills:['Robust','250ml','Seasonal'],price:'€29',was:'',cap:'#33441f',l:'#9bb05a',l2:'#4d6629',sub:'EARLY HARVEST'},
+  {tag:'Infused',name:'Lemon Infused',note:'Whole lemons crushed with the olives at pressing for a bright, fresh citrus oil.',pills:['Flavoured','250ml'],price:'€16',was:'',cap:'#e9c84b',l:'#f3e2b0',l2:'#d9b94a',sub:'LEMON'},
+  {tag:'Infused',name:'Garlic & Rosemary',note:'Savoury and aromatic — finishing oil for roasts, bread and grilled vegetables.',pills:['Flavoured','250ml'],price:'€16',was:'',cap:'#8a5a2c',l:'#e0c98a',l2:'#9c7a34',sub:'GARLIC · ROSEMARY'},
+  {tag:'Beyond oil',name:'Olive Leaf Tea',note:'Hand-picked olive leaves, dried and steeped. Earthy, soothing, caffeine-free.',pills:['Tea','40 bags'],price:'€12',was:'',cap:'#3a4d24',l:'#b9c87a',l2:'#5a7330',sub:'LEAF TEA'},
+  {tag:'Beyond oil',name:'Olive Oil Soap',note:'Traditional cold-process soap made with our extra virgin oil. Gentle on skin.',pills:['Care','120g'],price:'€9',was:'',cap:'#c9a24b',l:'#efe6cf',l2:'#cbb98a',sub:'SAVON'},
+];
+const track=document.getElementById('track');
+track.innerHTML=products.map(p=>`
+  <article class="card">
+    <div class="vis">${bottle(p.cap,p.l,p.l2,p.name,p.sub)}</div>
+    <span class="tag">${p.tag}</span>
+    <h3>${p.name}</h3>
+    <p class="note">${p.note}</p>
+    <div class="pills">${p.pills.map(x=>`<i>${x}</i>`).join('')}</div>
+    <div class="foot">
+      <span class="price">${p.price}${p.was?`<s>${p.was}</s>`:''}</span>
+      <a class="add" href="#contact">Enquire
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </article>`).join('');
+
+/* carousel controls */
+const step=346;
+document.getElementById('next').addEventListener('click',()=>track.scrollBy({left:step,behavior:'smooth'}));
+document.getElementById('prev').addEventListener('click',()=>track.scrollBy({left:-step,behavior:'smooth'}));
+/* drag to scroll */
+let down=false,sx,sl;
+track.addEventListener('pointerdown',e=>{down=true;track.classList.add('drag');sx=e.pageX;sl=track.scrollLeft});
+addEventListener('pointerup',()=>{down=false;track.classList.remove('drag')});
+track.addEventListener('pointermove',e=>{if(!down)return;track.scrollLeft=sl-(e.pageX-sx)});
+
+/* ---------- faq ---------- */
+document.querySelectorAll('#faqList .qa').forEach(qa=>{
+  const ans=qa.querySelector('.ans');
+  qa.querySelector('button').addEventListener('click',()=>{
+    const open=qa.classList.contains('open');
+    document.querySelectorAll('#faqList .qa').forEach(o=>{o.classList.remove('open');o.querySelector('.ans').style.maxHeight=null});
+    if(!open){qa.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';}
+  });
+});
+
+/* ---------- contact (front-end only) ---------- */
+document.getElementById('send').addEventListener('click',()=>{
+  const n=document.getElementById('name').value.trim(),e=document.getElementById('email').value.trim();
+  if(!n||!e){[ ['name',n],['email',e] ].forEach(([id,v])=>{if(!v)document.getElementById(id).style.borderColor='#c9685b'});return;}
+  document.getElementById('form').style.display='none';
+  document.getElementById('formOk').classList.add('show');
+});
+['name','email'].forEach(id=>document.getElementById(id).addEventListener('input',e=>e.target.style.borderColor=''));
+
+/* ---------- floating leaves ---------- */
+if(!reduce){
+  const layer=document.getElementById('leaves');
+  const leafSVG='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C18 6 20 12 17 19c-3 7-9 4-13 3 1-8 3-15 8-20Z"/></svg>';
+  for(let i=0;i<11;i++){
+    const d=document.createElement('div');d.className='leaf';
+    const s=10+Math.random()*22;
+    d.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${14+Math.random()*16}s;animation-delay:${-Math.random()*20}s;color:${Math.random()>.5?'#6f8a3c':'#c9a24b'};opacity:${.25+Math.random()*.3}`;
+    d.innerHTML=leafSVG;layer.appendChild(d);
+  }
+}
+</script>
+</body>
+</html>
